@@ -6,6 +6,10 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Notifications\Notifiable;
+use App\Models\UserPicture;
+use App\Models\UserLike;
+use App\Models\AdminNotification;
+use App\Models\UserAccessToken; 
 
 class User extends Authenticatable
 {
@@ -18,7 +22,8 @@ class User extends Authenticatable
 
     public function pictures()
     {
-        return $this->hasMany(UserPicture::class);
+        return $this->hasMany(UserPicture::class)
+        ->orderByDesc('is_primary');
     }
 
     public function likesGiven()
@@ -34,5 +39,10 @@ class User extends Authenticatable
     public function notifications()
     {
         return $this->hasMany(AdminNotification::class);
+    }
+
+    public function tokens()
+    {
+        return $this->morphMany(UserAccessToken::class, 'tokenable');
     }
 }

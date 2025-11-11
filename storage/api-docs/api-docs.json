@@ -1,0 +1,226 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Tinder Apps API",
+        "description": "Endpoints for recommendations, like/dislike, and liked users list",
+        "version": "1.0.0"
+    },
+    "paths": {
+        "/api/recommendations": {
+            "get": {
+                "tags": [
+                    "User"
+                ],
+                "summary": "Get recommended users",
+                "operationId": "b52b2ba29df126bf30c67ddcd2a3b408",
+                "parameters": [
+                    {
+                        "name": "per_page",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "integer",
+                            "default": 10
+                        }
+                    },
+                    {
+                        "name": "page",
+                        "in": "query",
+                        "required": false,
+                        "schema": {
+                            "type": "integer",
+                            "default": 1
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Paginated list of recommended users"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/users/{user}/like": {
+            "post": {
+                "tags": [
+                    "User"
+                ],
+                "summary": "Like a user",
+                "operationId": "2b352f7087af8a88bd01e292fff82f85",
+                "parameters": [
+                    {
+                        "name": "user",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "User liked successfully"
+                    },
+                    "400": {
+                        "description": "Cannot like yourself"
+                    },
+                    "404": {
+                        "description": "Target user not found"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/users/{user}/dislike": {
+            "post": {
+                "tags": [
+                    "User"
+                ],
+                "summary": "Dislike a user",
+                "operationId": "874a801e450a6906426eeb58a983bf08",
+                "parameters": [
+                    {
+                        "name": "user",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "User disliked successfully"
+                    },
+                    "400": {
+                        "description": "Cannot dislike yourself"
+                    },
+                    "404": {
+                        "description": "Target user not found"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/users/liked": {
+            "get": {
+                "tags": [
+                    "User"
+                ],
+                "summary": "Get list of liked users",
+                "operationId": "a46f2b134617dca969f904626cb8029f",
+                "responses": {
+                    "200": {
+                        "description": "List of users liked by the authenticated user"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "PictureResource": {
+                "title": "Picture Resource",
+                "properties": {
+                    "id": {
+                        "type": "integer",
+                        "example": 1
+                    },
+                    "url": {
+                        "type": "string",
+                        "example": "https://example.com/image.jpg"
+                    },
+                    "is_primary": {
+                        "type": "boolean",
+                        "example": true
+                    }
+                },
+                "type": "object"
+            },
+            "UserResource": {
+                "title": "User Resource",
+                "properties": {
+                    "id": {
+                        "type": "integer",
+                        "example": 1
+                    },
+                    "name": {
+                        "type": "string",
+                        "example": "John Doe"
+                    },
+                    "email": {
+                        "type": "string",
+                        "example": "john@example.com"
+                    },
+                    "age": {
+                        "type": "integer",
+                        "example": 25
+                    },
+                    "location": {
+                        "properties": {
+                            "city": {
+                                "type": "string",
+                                "example": "Jakarta"
+                            },
+                            "country": {
+                                "type": "string",
+                                "example": "Indonesia"
+                            },
+                            "latitude": {
+                                "type": "number",
+                                "format": "float",
+                                "example": -6.2088
+                            },
+                            "longitude": {
+                                "type": "number",
+                                "format": "float",
+                                "example": 106.8456
+                            }
+                        },
+                        "type": "object"
+                    },
+                    "pictures": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/PictureResource"
+                        }
+                    }
+                },
+                "type": "object"
+            }
+        },
+        "securitySchemes": {
+            "bearerAuth": {
+                "type": "http",
+                "scheme": "bearer"
+            }
+        }
+    },
+    "tags": [
+        {
+            "name": "User",
+            "description": "User"
+        }
+    ]
+}

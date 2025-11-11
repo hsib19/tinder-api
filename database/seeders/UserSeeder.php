@@ -24,14 +24,14 @@ class UserSeeder extends Seeder
             $location = $cities[array_rand($cities)];
 
             DB::table('users')->insert([
-                'name' => $faker->name,
-                'age' => rand(18, 60),
-                'email' => $faker->unique()->safeEmail,
-                'password' => Hash::make('password'), 
-                'city' => $location['city'],
-                'country' => $location['country'],
-                'latitude' => $location['lat'] + mt_rand(-1000, 1000) / 10000,
-                'longitude' => $location['lng'] + mt_rand(-1000, 1000) / 10000,
+                'name'       => $faker->name,
+                'age'        => rand(18, 60),
+                'email'      => $faker->unique()->safeEmail,
+                'password'   => Hash::make('password'),
+                'city'       => $faker->city,
+                'country'    => $faker->country,
+                'latitude'   => $faker->latitude,
+                'longitude'  => $faker->longitude,
                 'created_at' => now(),
                 'updated_at' => now(),
             ]);
