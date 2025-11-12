@@ -13,6 +13,15 @@ This is a Laravel 12 project skeleton configured with essential packages and rea
 * Queue workers with `queue:listen`
 * Custom JSON response helper (`app/Helpers/JsonResponse.php`)
 
+## Swagger API
+
+Bearer Token : 
+```
+1|0kRO7bJeYkAPpNcpsf7bsCbi7te7cq7uQ10OKbq3afd0eb24
+```
+
+### URL : [https://tinder-app.alwaysdata.net/api/documentation](https://tinder-app.alwaysdata.net/api/documentation)
+---
 ## Development
 
 Run the development environment using Turborepo-style parallel commands:
